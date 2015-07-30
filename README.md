@@ -1,6 +1,8 @@
 # EGA-API-Python-Wrapper
 This is the python wrapper for the EGA API, in order that it will be more friendly to use.
 
+If you want to use this code, please add "from EGA import Session" to your code.
+
 The main class is 'Session'.
 
 When initializing a dialogue, newSession = newSession()
