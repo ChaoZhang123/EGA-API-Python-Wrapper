@@ -361,7 +361,7 @@ class Enumerate:
 
 # The class wrapping up all the actions of API
 class Session:
-    def __init__(self,username = 'ega-box-85',password = 'f4jJMQ7P',loginType = 'submitter', validity = 1800):
+    def __init__(self,username = 'test',password = 'test',loginType = 'submitter', validity = 1800):
         params_list = {
             'username':username,
             'password':password,
