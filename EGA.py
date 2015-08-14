@@ -5,31 +5,29 @@ import time
 import sys
 
 class Retrieve:
-    def __init__(self, session, sessionId, validity, startTime):
-        self.metadata = Metadata(session, sessionId, validity, startTime)
-        self.files = Files(session, sessionId, validity, startTime)
+    def __init__(self, session, sessionId):
+        self.metadata = Metadata(session, sessionId)
+        self.files = Files(session, sessionId)
 
 
 # The assembly class for retrieving the metadata
-# Status can be 'draft', 'validated' or 'validated_with_errors
+# Status can be 'draft', 'validated' or 'validated_with_errors'
 # When objectId is uncalled for, please explictly cite the name 'status' when calling back the function
 class Metadata:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
         
-    def actions(self, actionName, objectId = '', status = 'draft'):
-        if time.time() - self.startTime >= self.validity:
-            sys.exit("The session has been timed out.") 
+    def actions(self, actionName, objectId = '', status = 'draft', limit = '&skip=0&limit=10'):
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
+            sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             if objectId != '':
                 return self.session.get('https://egatest.crg.eu/submitterportal/v1/' + actionName + '/' + str(objectId))
             else:
-                return self.session.get('https://egatest.crg.eu/submitterportal/v1/'+ actionName +'?status=' + status.upper())
+                return self.session.get('https://egatest.crg.eu/submitterportal/v1/'+ actionName +'?status=' + status.upper() + limit)
     
     def samples(self, objectId = '', status = 'draft'):
         return self.actions('samples',objectId,status)
@@ -62,18 +60,16 @@ class Metadata:
 
 # The assembly class for retrieving file status
 class Files:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
         
     def actions(self, actionName):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             return self.session.get('https://egatest.crg.eu/submitterportal/v1/files?sourceType=' + actionName)
         
     def inbox(self):
@@ -101,20 +97,19 @@ class Files:
 
 # The assembly class for the submittion data operation
 class Submit:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
-        self.edit = Edit(session,sessionId, validity, startTime)
-        self.validateOne = ValidateOne(session, sessionId, validity, startTime)
-        self.submitOne = SubmitOne(session, sessionId, validity, startTime)
+        self.edit = Edit(session,sessionId)
+        self.validateOne = ValidateOne(session, sessionId)
+        self.submitOne = SubmitOne(session, sessionId)
     
     def new(self, title, description = '', alias = ''):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
+            Session.startTime = time.time()
             self.session.headers.update({'Content-type':'application/json'})
             submission = {
                 'title':title,
@@ -126,16 +121,21 @@ class Submit:
             self.submissionId = json.loads(self.submission.text)['response']['result'][0]['id']
             
     def set_subssessionId(self, submissionId):
-        self.submissionId = submissionId
-    
-    def actions(self, actionName, idName, filePath):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
+            self.submissionId = submissionId
+    
+    def actions(self, actionName, idName, filePath):
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
+            sys.exit("The session has been timed out.")
+        else:
+            Session.startTime = time.time()
             self.session.headers.update({'Content-type':'application/xml'})
             response = self.session.post('https://egatest.crg.eu/submitterportal/v1/submissions/'+ self.submissionId +'/' + actionName + '/xml', data = open(filePath,'rb'))
             setattr(self, idName, json.loads(response.text)['response']['result'][0]['id'])
+            return response
 
     def studies(self, filePath):
         return self.actions('studies', 'studyId', filePath)
@@ -159,10 +159,10 @@ class Submit:
         return self.actions('experiments', 'experimentId', filePath)
 
     def validate(self):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             if self.session.headers.has_key('Content-type'):
                 self.session.headers.pop('Content-type')
             try:
@@ -171,10 +171,10 @@ class Submit:
                 sys.exit("You don't create a submission tract yet.")
         
     def submit(self):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             if self.session.headers.has_key('Content-type'):
                 self.session.headers.pop('Content-type')
             return self.session.put('https://egatest.crg.eu/submitterportal/v1/submissions/'+self.submissionId, data = {'action':'SUBMIT'})
@@ -182,19 +182,17 @@ class Submit:
 
 # Validate one item one time
 class ValidateOne:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
     
     def actions(self, actionName, objectId, action = 'VALIDATE'):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
-            return self.session.put('https://egatest.crg.eu/submitterportal/v1/'+ actionName + '/' + objectId, data = {'submitAction': action})
+            Session.startTime = time.time()
+            return self.session.put('https://egatest.crg.eu/submitterportal/v1/'+ actionName + '/' + objectId + '?action=' + action)
         
     def analysis(self,objectId):
         return self.actions('analyses', objectId)
@@ -221,19 +219,17 @@ class ValidateOne:
 
 # Validate one item one time
 class SubmitOne:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
     
     def actions(self, actionName, objectId, action = 'SUBMIT'):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
-            return self.session.put('https://egatest.crg.eu/submitterportal/v1/'+ actionName + '/' + objectId, data = {'action': action})
+            Session.startTime = time.time()
+            return self.session.put('https://egatest.crg.eu/submitterportal/v1/'+ actionName + '/' + objectId + '?action=' + action)
         
     def analysis(self,objectId):
         return self.actions('analyses', objectId)
@@ -259,18 +255,16 @@ class SubmitOne:
 
 
 class Edit:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
     
     def actions(self, actionName, filePath):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             self.session.headers.update({'Content-type':'application/xml'})
             return self.session.put('https://egatest.crg.eu/submitterportal/v1/' + actionName +'/xml', data = open(filePath,'rb'))
 
@@ -296,18 +290,16 @@ class Edit:
 
 # The assembly class for the enumerating operation of API
 class Enumerate:
-    def __init__(self, session, sessionId, validity, startTime):
+    def __init__(self, session, sessionId):
         self.session = session
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
-        self.validity = validity
-        self.startTime = startTime
     
     def action(self, actionName):
-        if time.time() - self.startTime >= self.validity:
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
-            self.startTime = time.time()
+            Session.startTime = time.time()
             return self.session.get('https://egatest.crg.eu/submitterportal/v1/enums/'+ actionName)
         
     def actions(self):
@@ -361,21 +353,24 @@ class Enumerate:
 
 # The class wrapping up all the actions of API
 class Session:
-    def __init__(self,username = 'test',password = 'test',loginType = 'submitter', validity = 1800):
+    startTime = time.time()
+    validity = None
+    def __init__(self,username = 'ega-box-85',password = 'f4jJMQ7P',loginType = 'submitter', validity = 1800):
         params_list = {
             'username':username,
             'password':password,
             'loginType':loginType
             }
         self.session = requests.session()
-        self.validity = validity
-        self.startTime = time.time()
+        Session.validity = validity
         self.login = self.session.post('https://egatest.crg.eu/submitterportal/v1/login',data = params_list)
         self.sessionId = json.loads(self.login.text)['response']['result'][0]['session']['sessionToken']
-        self.retrieve = Retrieve(self.session, self.sessionId, self.validity, self.startTime)
-        self.submit = Submit(self.session,self.sessionId, self.validity, self.startTime)
-        self.enumerate = Enumerate(self.session,self.sessionId, self.validity, self.startTime)
+        self.retrieve = Retrieve(self.session, self.sessionId)
+        self.submit = Submit(self.session,self.sessionId)
+        self.enumerate = Enumerate(self.session,self.sessionId)
         
     def logout(self):
         self.session.delete("https://egatest.crg.eu/submitterportal/v1/logout")
-        print 'The session has been terminated.'
+        Session.startTime = None
+        Session.validity = None
+        print('The session has been terminated.')
