@@ -65,12 +65,12 @@ class Files:
         self.sessionId = sessionId
         self.session.headers = {'X-Token':sessionId}
         
-    def actions(self, actionName):
+    def actions(self, actionName, limit = '&skip=0&limit=20'):
         if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
             Session.startTime = time.time()
-            return self.session.get('https://egatest.crg.eu/submitterportal/v1/files?sourceType=' + actionName)
+            return self.session.get('https://egatest.crg.eu/submitterportal/v1/files?sourceType=' + actionName + limit)
         
     def inbox(self):
         return self.actions('INBOX')
@@ -134,7 +134,7 @@ class Submit:
             Session.startTime = time.time()
             self.session.headers.update({'Content-type':'application/xml'})
             response = self.session.post('https://egatest.crg.eu/submitterportal/v1/submissions/'+ self.submissionId +'/' + actionName + '/xml', data = open(filePath,'rb'))
-            setattr(self, idName, json.loads(response.text)['response']['result'][0]['id'])
+            #setattr(self, idName, json.loads(response.text)['response']['result'][0]['id'])
             return response
 
     def studies(self, filePath):
@@ -353,7 +353,7 @@ class Enumerate:
 
 # The class wrapping up all the actions of API
 class Session:
-    startTime = time.time()
+    startTime = None
     validity = None
     def __init__(self,username = 'ega-box-85',password = 'f4jJMQ7P',loginType = 'submitter', validity = 1800):
         params_list = {
@@ -368,6 +368,7 @@ class Session:
         self.retrieve = Retrieve(self.session, self.sessionId)
         self.submit = Submit(self.session,self.sessionId)
         self.enumerate = Enumerate(self.session,self.sessionId)
+        Session.startTime = time.time()
         
     def logout(self):
         self.session.delete("https://egatest.crg.eu/submitterportal/v1/logout")
