@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<POLICY_SET>
+    <POLICY alias="Cell_Line_Policy_5" center_name="TraIT" broker_name="EGA">
+        <!--if referring to an existing policy please replace 'alias' with accession="TODO:Insert accession number here" .
+            Contact ega-helpdesk@ebi.ac.uk if your are unsure of the policy accession you should use.-->
+        <TITLE>The Policy for the Cell Line Test Case</TITLE>
+        <DAC_REF refname="DAC_CELL_LINE_TRAIT_TEST_2" refcenter=""/>
+        <!-- A list of existing DAC accessions can be found here: https://www.ebi.ac.uk/ega/dacs. -->  
+        <POLICY_TEXT>”We just created a test policy.”</POLICY_TEXT>
+        <!-- Add your policy text into the XML or supply the files separately to ega-helpdesk@ebi.ac.uk. 
+        Policy documentation and statement examples can be found on the EGA website.-->
+        <POLICY_LINKS>
+            <POLICY_LINK>
+                <URL_LINK>
+                    <LABEL>Data Access Agreement </LABEL>
+                    <URL>http://vu.nl</URL>
+                </URL_LINK>
+            </POLICY_LINK>  
+        </POLICY_LINKS>
+    </POLICY>
+</POLICY_SET>

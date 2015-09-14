@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RUN_SET  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.run.xsd">
+    <RUN alias="HCT116_5" center_name="TraIT" run_date="2015-06-02T16:34:00">
+        <!-- run_center is optional but should be used if sequencing was carried out 
+             elsewhere. It should use an acronym/abbreviation from a controlled vocabulary. 
+             Please contact us for this acronym if unsure. Delete run_center element if 
+             not needed. -->
+        <!-- run_date uses a strict format. Please make sure the time stamp is included, 
+             even if it is zeroes (i.e., T00:00:00). -->
+        <EXPERIMENT_REF refname="Cell_Line_Test_HCT116_5"/>
+        
+        <!-- reference assembly and sequences should be provided for BAM files with aligned reads -->
+        <RUN_TYPE>
+            <REFERENCE_ALIGNMENT>
+                <ASSEMBLY>
+                    <STANDARD refname="GRCh37" accession="GCA_000001405.1"/>
+                </ASSEMBLY>
+                <!--
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                -->
+            </REFERENCE_ALIGNMENT>
+        </RUN_TYPE>
+        
+        <DATA_BLOCK>
+            <!-- member_name should be the name (usually sample alias) given in the 
+                 experiment xml of a pooled experiment. For experiments without a pool, 
+                 the member_name attribute in run.xml should be removed. -->
+            <FILES>
+                <FILE filename="/hct116/lane2.fastq.gz.gpg"
+                    filetype="fastq"
+                    checksum_method="MD5" checksum="ffe6fb55599ed08f16beaa989d76ab0f" unencrypted_checksum="e576a691a7ed386bca4caeea4c8f7fc6"/> 
+            </FILES>
+        </DATA_BLOCK>
+    </RUN>
+
+    <RUN alias="HT29_5" center_name="TraIT" run_date="2015-06-02T17:49:00">
+        <!-- run_center is optional but should be used if sequencing was carried out 
+             elsewhere. It should use an acronym/abbreviation from a controlled vocabulary. 
+             Please contact us for this acronym if unsure. Delete run_center element if 
+             not needed. -->
+        <!-- run_date uses a strict format. Please make sure the time stamp is included, 
+             even if it is zeroes (i.e., T00:00:00). -->
+        <EXPERIMENT_REF refname="Cell_Line_Test_HT29_5"/>
+        
+        <!-- reference assembly and sequences should be provided for BAM files with aligned reads -->
+        <RUN_TYPE>
+            <REFERENCE_ALIGNMENT>
+                <ASSEMBLY>
+                    <STANDARD refname="GRCh37" accession="GCA_000001405.1"/>
+                </ASSEMBLY>
+                <!--
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                -->
+            </REFERENCE_ALIGNMENT>
+        </RUN_TYPE>
+        
+        <DATA_BLOCK>
+            <!-- member_name should be the name (usually sample alias) given in the 
+                 experiment xml of a pooled experiment. For experiments without a pool, 
+                 the member_name attribute in run.xml should be removed. -->
+            <FILES>
+                <FILE filename="/ht29/lane2.fastq.gz.gpg"
+                    filetype="fastq"
+                    checksum_method="MD5" checksum="b1e0de683bd5eb417b47bb43c41aa918" unencrypted_checksum="dd9342dcf9d414e757f86cc0af9034d0"/> 
+            </FILES>
+        </DATA_BLOCK>
+    </RUN>
+
+    <RUN alias="SW480_5" center_name="TraIT" run_date="2015-06-02T18:13:00">
+        <!-- run_center is optional but should be used if sequencing was carried out 
+             elsewhere. It should use an acronym/abbreviation from a controlled vocabulary. 
+             Please contact us for this acronym if unsure. Delete run_center element if 
+             not needed. -->
+        <!-- run_date uses a strict format. Please make sure the time stamp is included, 
+             even if it is zeroes (i.e., T00:00:00). -->
+        <EXPERIMENT_REF refname="Cell_Line_Test_SW480_5"/>
+        
+        <!-- reference assembly and sequences should be provided for BAM files with aligned reads -->
+        <RUN_TYPE>
+            <REFERENCE_ALIGNMENT>
+                <ASSEMBLY>
+                    <STANDARD refname="GRCh37" accession="GCA_000001405.1"/>
+                </ASSEMBLY>
+                <!--
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                <SEQUENCE accession="TODO: INSDC sequence accession and version"
+                    label="TODO: reference sequence name in the BAM file"/>
+                -->
+            </REFERENCE_ALIGNMENT>
+        </RUN_TYPE>
+        
+        <DATA_BLOCK>
+            <!-- member_name should be the name (usually sample alias) given in the 
+                 experiment xml of a pooled experiment. For experiments without a pool, 
+                 the member_name attribute in run.xml should be removed. -->
+            <FILES>
+                <FILE filename="/sw480/lane7.fastq.gz.gpg"
+                    filetype="fastq"
+                    checksum_method="MD5" checksum="7192dc64a8b62aea2b72b70e5e66d1c0" unencrypted_checksum="14a71008d899b5ea313f08fd2cb3c563"/> 
+            </FILES>
+        </DATA_BLOCK>
+    </RUN>
+    <!-- If you are submitting more than one run, replicate the block <RUN> to </RUN> here, 
+        as many times as necessary. -->
+</RUN_SET>
+<!--
+ Controlled vocabulary for filetype:
+    "srf"
+    "sff"
+    "fastq"
+    "cram" 
+    "bam"
+    "Illumina_native_qseq"
+    "Illumina_native_scarf"
+    "Illumina_native_fastq"
+    "SOLiD_native_csfasta"
+    "SOLiD_native_qual"
+    "PacBio_HDF5
+     "CompleteGenomics_native"
+-->
+

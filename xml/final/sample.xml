@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAMPLE_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
+    <SAMPLE alias="HCT116_5" center_name="TraIT">                     
+        <TITLE>HCT116</TITLE>
+        <SAMPLE_NAME>
+            <TAXON_ID>9606</TAXON_ID>
+            <!-- For complete prokaryotic genomes, a taxid should be generate for the strain. 
+                 Please contact us so we can generate this on your behalf. -->
+            <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+            <COMMON_NAME>Human</COMMON_NAME>
+        </SAMPLE_NAME>
+        <DESCRIPTION>This is a cellline sample.</DESCRIPTION>
+        <SAMPLE_ATTRIBUTES>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>subject_id</TAG>
+                <VALUE>HCT116</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>gender</TAG>
+                <VALUE>male</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>phenotype</TAG>
+                <VALUE>colorectal carcinoma cell line</VALUE>
+                <!-- http://www.ebi.ac.uk/efo/ .-->
+                <!-- Sample attributes Donor ID, Gender and phenotype MUST be provided for each sample.-->
+            </SAMPLE_ATTRIBUTE>
+            <!-- You can generate your own fields and values here using SAMPLE_ATTRIBUTE 
+                tag-value pairs. An example tag could be "Region" and the value 
+                could be "European". You can also use the UNITS element to include 
+                scientific units. E.g., TAG "Age" VALUE "5" UNITS "Years". -->
+        </SAMPLE_ATTRIBUTES>
+    </SAMPLE>
+
+    <SAMPLE alias="HT29_5" center_name="TraIT">                     
+        <TITLE>HT29</TITLE>
+        <SAMPLE_NAME>
+            <TAXON_ID>9606</TAXON_ID>
+            <!-- For complete prokaryotic genomes, a taxid should be generate for the strain. 
+                 Please contact us so we can generate this on your behalf. -->
+            <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+            <COMMON_NAME>Human</COMMON_NAME>
+        </SAMPLE_NAME>
+        <DESCRIPTION>This is a cellline sample.</DESCRIPTION>
+        <SAMPLE_ATTRIBUTES>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>subject_id</TAG>
+                <VALUE>HT29</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>gender</TAG>
+                <VALUE>female</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>phenotype</TAG>
+                <VALUE>colorectal adenocarcinoma cell line</VALUE>
+                <!-- http://www.ebi.ac.uk/efo/ .-->
+                <!-- Sample attributes Donor ID, Gender and phenotype MUST be provided for each sample.-->
+            </SAMPLE_ATTRIBUTE>
+            <!-- You can generate your own fields and values here using SAMPLE_ATTRIBUTE 
+                tag-value pairs. An example tag could be "Region" and the value 
+                could be "European". You can also use the UNITS element to include 
+                scientific units. E.g., TAG "Age" VALUE "5" UNITS "Years". -->
+        </SAMPLE_ATTRIBUTES>
+    </SAMPLE>
+    <SAMPLE alias="SW480_5" center_name="TraIT">                     
+        <TITLE>SW480</TITLE>
+        <SAMPLE_NAME>
+            <TAXON_ID>9606</TAXON_ID>
+            <!-- For complete prokaryotic genomes, a taxid should be generate for the strain. 
+                 Please contact us so we can generate this on your behalf. -->
+            <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+            <COMMON_NAME>Human</COMMON_NAME>
+        </SAMPLE_NAME>
+        <DESCRIPTION>This is a cellline sample.</DESCRIPTION>
+        <SAMPLE_ATTRIBUTES>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>subject_id</TAG>
+                <VALUE>SW480</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>gender</TAG>
+                <VALUE>male</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>phenotype</TAG>
+                <VALUE>colorectal adenocarcinoma cell line</VALUE>
+                <!-- http://www.ebi.ac.uk/efo/ .-->
+                <!-- Sample attributes Donor ID, Gender and phenotype MUST be provided for each sample.-->
+            </SAMPLE_ATTRIBUTE>
+            <!-- You can generate your own fields and values here using SAMPLE_ATTRIBUTE 
+                tag-value pairs. An example tag could be "Region" and the value 
+                could be "European". You can also use the UNITS element to include 
+                scientific units. E.g., TAG "Age" VALUE "5" UNITS "Years". -->
+        </SAMPLE_ATTRIBUTES>
+    </SAMPLE>
+
+    <!-- If you are submitting more than one sample, replicate the block <SAMPLE> to </SAMPLE> 
+         here, as many times as necessary. -->
+</SAMPLE_SET>
