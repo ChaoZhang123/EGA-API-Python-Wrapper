@@ -56,7 +56,45 @@ class Metadata:
     def submissions(self, objectId = '', status = 'draft'):
         return self.actions('submissions',objectId,status)
 
+class deleteMetadata:
+    def __init__(self, session, sessionId):
+        self.session = session
+        self.sessionId = sessionId
+        self.session.headers = {'X-Token':sessionId}
 
+    def actions(self, actionName, objectId, limit = '&skip=0&limit=10'):
+        if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
+            sys.exit("The session has been timed out.")
+        else:
+            Session.startTime = time.time()
+            return self.session.delete('https://egatest.crg.eu/submitterportal/v1/' + actionName + '/' + str(objectId))
+
+    def samples(self, objectId):
+        return self.actions('samples',objectId)
+    
+    def studies(self, objectId):
+        return self.actions('studies',objectId)
+    
+    def experiments(self, objectId):
+        return self.actions('experiments',objectId)
+    
+    def analyses(self, objectId):
+        return self.actions('analyses',objectId)
+    
+    def runs(self, objectId):
+        return self.actions('runs',objectId)
+    
+    def policies(self, objectId):
+        return self.actions('policies',objectId)
+    
+    def dacs(self, objectId):
+        return self.actions('dacs',objectId)
+    
+    def datasets(self, objectId):
+        return self.actions('datasets',objectId)
+    
+    def submissions(self, objectId):
+        return self.actions('submissions',objectId)
 
 # The assembly class for retrieving file status
 class Files:
@@ -144,7 +182,7 @@ class Submit:
         return self.actions('samples', 'sampleId', filePath)
     
     def runs(self, filePath):
-        return self.actions('runs', 'runId', filePath)
+        return self.actions('runs/sequencing', 'runId', filePath)
     
     def dacs(self, filePath):
         return self.actions('dacs', 'dacId', filePath)
@@ -368,6 +406,7 @@ class Session:
         self.retrieve = Retrieve(self.session, self.sessionId)
         self.submit = Submit(self.session,self.sessionId)
         self.enumerate = Enumerate(self.session,self.sessionId)
+        self.deleteMetadata = deleteMetadata(self.session, self.sessionId)
         Session.startTime = time.time()
         
     def logout(self):
