@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DATASETS>
+    <DATASET alias="EGA_DEMO" center_name="TraIT" broker_name="EGA">
+        <TITLE>Raw Data Collection for Demo</TITLE>
+        <DATASET_TYPE>Exome sequencing</DATASET_TYPE>
+        <RUN_REF accession="EGAR00001352058"/>
+        <RUN_REF accession="EGAR00001352059"/>
+        <RUN_REF accession="EGAR00001352060"/>
+        <RUN_REF accession="EGAR00001352061"/>
+        <RUN_REF accession="EGAR00001352062"/>
+        <!--EGAR/EGAZ accession numbers are provided upon the receipt of the submission of
+        an Run/analysis XML. -->
+        <POLICY_REF accession="EGAP00001000380" refcenter=""/>
+        <!--EGAP accession numbers are provided upon the receipt of the submission of a Policy XML. -->
+        <DATASET_LINKS>
+            <DATASET_LINK>
+                <URL_LINK>
+                    <LABEL>portal name</LABEL>
+                    <URL>http://www.ibi.vu.nl/</URL>
+                </URL_LINK>
+            </DATASET_LINK>
+            <!-- If you are submitting more than one dataset link, replicate the block <DATASET_LINK> to </DATASET_LINK>
+   here, as many times as necessary. -->
+        </DATASET_LINKS>
+    </DATASET>
+    <!-- If you are submitting more than one dataset, replicate the block <DATASET> to </DATASET> here,
+  as many times as necessary. -->
+</DATASETS>
+<!-- Controlled terms for Dataset type:
+Whole genome sequencing
+Exome sequencing
+Genotyping by array
+Transcriptome profiling by high-throughput sequencing
+Transcriptome profiling by array
+Amplicon sequencing
+Methylation binding domain sequencing
+Methylation profiling by high-throughput sequencing
+Phenotype information
+Study summary information
+Genomic variant calling -->
+
