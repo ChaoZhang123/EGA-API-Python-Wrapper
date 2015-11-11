@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DATASETS>
+    <DATASET alias="TODO:UNIQUE NAME" center_name="TODO: ACCOUNT CENTER_NAME ACRONYM" broker_name="EGA">
+        <TITLE>TODO:DATASET TITLE e.g. Control samples for X</TITLE>
+        <DATASET_TYPE>Whole genome sequencing</DATASET_TYPE>
+        <RUN_REF accession="TODO:ACCESSION NUMBER(EGAR)"/>
+        <RUN_REF accession="TODO:ACCESSION NUMBER(EGAR)"/>
+        <ANALYSIS_REF accession="TO DO: ACCESSION NUMBER (EGAZ)"/>
+        <!--EGAR/EGAZ accession numbers are provided upon the receipt of the submission of
+        an Run/analysis XML. -->
+        <POLICY_REF accession="TODO:ACCESSION NUMBER (EGAP)" refcenter="TODO:e.g consortium name if appropriate"/>
+        <!--EGAP accession numbers are provided upon the receipt of the submission of a Policy XML. -->
+        <DATASET_LINKS>
+            <DATASET_LINK>
+                <URL_LINK>
+                    <LABEL>TODO:LABEL NAME (e.g. portal name)</LABEL>
+                    <URL>TODO:WEBSITE ADDRESS</URL>
+                </URL_LINK>
+            </DATASET_LINK>
+            <!-- If you are submitting more than one dataset link, replicate the block <DATASET_LINK> to </DATASET_LINK>
+   here, as many times as necessary. -->
+        </DATASET_LINKS>
+        <DATASET_ATTRIBUTES>
+            <DATASET_ATTRIBUTE>
+                <TAG>TO DO: Submitter defined tag name</TAG>
+                <VALUE>TO DO: Submitter defined value</VALUE>
+                <UNITS>TO DO: Submitter defined units</UNITS>
+            </DATASET_ATTRIBUTE> 
+        </DATASET_ATTRIBUTES>
+    </DATASET>
+    <!-- If you are submitting more than one dataset, replicate the block <DATASET> to </DATASET> here,
+  as many times as necessary. -->
+</DATASETS>
+<!-- Controlled terms for Dataset type:
+Whole genome sequencing
+Exome sequencing
+Genotyping by array
+Transcriptome profiling by high-throughput sequencing
+Transcriptome profiling by array
+Amplicon sequencing
+Methylation binding domain sequencing
+Methylation profiling by high-throughput sequencing
+Phenotype information
+Study summary information
+Genomic variant calling -->
+

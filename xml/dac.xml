@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DAC_SET>
+    <DAC alias="DAC_CELL_LINE_TRAIT_TEST_2" center_name="TraIT" broker_name="EGA">
+        <TITLE>DAC for Cell Line Data Test of TraIT</TITLE>
+        <CONTACTS>
+            <CONTACT name="Jochem" email="j.bijlard@vu.nl" organisation="VU University" telephone_number="0031686060088"/>
+        </CONTACTS>
+        <!-- If you are submitting more than one contact, replicate the block <CONTACT> to
+       </CONTACTS> here, as  many times as necessary. -->
+    </DAC>
+</DAC_SET>
