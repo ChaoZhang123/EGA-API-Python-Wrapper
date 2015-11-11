@@ -144,6 +144,14 @@ class Submit:
         self.submitOne = SubmitOne(session, sessionId)
     
     def new(self, title, description = '', alias = ''):
+        '''
+        create a new submission, giving the title, description and alias of the submission
+        Usage: newSession.submit.new(title, description, alias)
+        title, compulsory
+        description, optional
+        alias, optional
+        If you work for this submission for a long time, you might keep the submission Id to use it next time.
+        '''
         if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
@@ -158,7 +166,11 @@ class Submit:
             self.submission = self.session.post('https://egatest.crg.eu/submitterportal/v1/submissions', data = submission)
             self.submissionId = json.loads(self.submission.text)['response']['result'][0]['id']
             
-    def set_subssessionId(self, submissionId):
+    def set_submissionId(self, submissionId):
+        '''
+        When create a new session, but you want to reuse the old submission Id
+        You can use this function to set it; or else just skip it.
+        '''
         if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
@@ -166,6 +178,10 @@ class Submit:
             self.submissionId = submissionId
     
     def actions(self, actionName, idName, filePath):
+        '''
+        This is the common function to internal calling back
+        Normally, you won't use it directly.
+        '''
         if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
@@ -176,12 +192,24 @@ class Submit:
             return response
 
     def studies(self, filePath):
+        '''
+        Sumit the study xml file
+        Usage: newSession.submit.studies(filePath)
+        '''
         return self.actions('studies', 'studyId', filePath)
     
     def samples(self, filePath):
+        '''
+        Sumit the sample xml file
+        Usage: newSession.submit.samples(filePath)
+        '''
         return self.actions('samples', 'sampleId', filePath)
     
     def runs(self, filePath):
+        '''
+        Sumit the run xml file
+        Usage: newSession.submit.runs(filePath)
+        '''
         return self.actions('runs/sequencing', 'runId', filePath)
     
     def dacs(self, filePath):
@@ -197,6 +225,12 @@ class Submit:
         return self.actions('experiments', 'experimentId', filePath)
 
     def validate(self):
+        '''
+        After uploading all the xml files, this step will make the server to proofread the xml files.
+        Please mind the response, because you will find the error descriptions there if errors exist.
+        Usage:validation = newSession.submit.validate()
+              json.loads(validation.text)
+        '''
         if (Session.startTime is None) or (time.time() - Session.startTime >= Session.validity):
             sys.exit("The session has been timed out.")
         else:
@@ -391,6 +425,13 @@ class Enumerate:
 
 # The class wrapping up all the actions of API
 class Session:
+    '''
+    This is the class from which we start to use the script.
+    Usage: newSession = Session()
+    The the objects of all the other classes will be automatically created.
+    If there is no operation within 30 minutes, the session will be suspended; you need to redo it to have a new session.
+    Tips: If the submission will cover several sessions, it is best to keep the submission in order to reuse it.
+    '''
     startTime = None
     validity = None
     def __init__(self,username = 'ega-box-85',password = 'f4jJMQ7P',loginType = 'submitter', validity = 1800):
@@ -410,6 +451,10 @@ class Session:
         Session.startTime = time.time()
         
     def logout(self):
+        '''
+        To forcefully drop out the session.
+        Usage: newSession.logout()
+        '''
         self.session.delete("https://egatest.crg.eu/submitterportal/v1/logout")
         Session.startTime = None
         Session.validity = None
